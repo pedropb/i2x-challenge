@@ -2,8 +2,10 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field } from 'redux-form';
+import { connect } from 'react-redux';
 import { TextField }from 'redux-form-material-ui';
+import * as actions from '../actions';
 
 const FIELDS = {
   email: {
@@ -19,8 +21,8 @@ const FIELDS = {
 
 class Login extends Component {
 
-  handleFormSubmit() {
-
+  handleFormSubmit({ email, password }) {
+    this.props.loginUser({ email, password });
   }
 
   renderField(fieldConfig, field) {
@@ -69,8 +71,10 @@ function validate(values) {
   return errors;
 }
 
-export default reduxForm({
+Login = reduxForm({
   form: 'login',
   fields: _.keys(FIELDS),
   validate
-}, null, null)(Login);
+}, null, actions)(Login);
+
+export default connect(null, actions)(Login)

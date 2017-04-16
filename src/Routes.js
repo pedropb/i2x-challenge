@@ -1,13 +1,13 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router';
-import createBrowserHistory from 'history/createBrowserHistory'
+import history from './history';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import Recordings from './components/Recordings';
 
-export default function Routes() {
+export default function Routes(props) {
   return (
-    <Router history={createBrowserHistory()}>
+    <Router history={history}>
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
