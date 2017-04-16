@@ -1,75 +1,48 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
-import {Card, CardText} from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
+import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import { reduxForm, Field } from 'redux-form'
+import { TextField }from 'redux-form-material-ui';
+
+const FIELDS = {
+  email: {
+    floatingLabelText: 'E-mail',
+    hintText: 'Enter e-mail'
+  },
+  password: {
+    floatingLabelText: 'Password',
+    hintText: 'Enter password',
+    type: 'password'
+  }
+}
 
 class Login extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      email: '',
-      emailError: '',
-      password: '',
-      passwordError: ''
-    }
+  handleFormSubmit() {
+    console.log('Done');
   }
 
-  handleSubmit(event) {
-
-  }
-
-  handleEmailChange(event) {
-    this.setState({ email: event.target.value });
-
-    if (event.target.value.length === 0) {
-      this.setState({ emailError: 'Email is required.'});
-    }
-    else {
-      if (event.target.value.match(/^\S+@\S+\.\S+$/)) {
-        this.setState({ emailError: ''});
-      }
-      else {
-        this.setState({ emailError: 'Email is invalid.'});
-      }
-    }
-  }
-
-  handlePasswordChange(event) {
-    this.setState({ password: event.target.value });
-
-    if (event.target.value.length === 0) {
-      this.setState({ passwordError: 'Password is required.'});
-    }
-    else {
-      this.setState({ passwordError: '' });
-    }
+  renderField(fieldConfig, field) {
+    return (
+      <Field
+        component={TextField}
+        name={field}
+        key={field}
+        {...fieldConfig}
+      />
+    );
   }
 
   render () {
+    const { handleSubmit } = this.props;
+
     return (
         <Card className="login-wrapper">
-          <form className="login-form" onSubmit={this.handleSubmit.bind(this)}>
+          <form className="login-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
             <h2>Welcome!</h2><br />
             <hr className="colorgraph" />
-            <TextField 
-                floatingLabelText="E-mail"
-                hintText="Enter e-mail"
-                name="email"
-                onChange={this.handleEmailChange.bind(this)}
-                value={this.state.email}
-                errorText={this.state.emailError}
-              /><br />
-            <TextField 
-                floatingLabelText="Password"
-                hintText="Enter password"
-                type="password"
-                name="password"
-                onChange={this.handlePasswordChange.bind(this)}
-                value={this.state.password}
-                errorText={this.state.passwordError}
-              /><br />
+            {_.map(FIELDS, this.renderField.bind(this))}
             <RaisedButton type="submit" label="Login" primary={true} />
           </form>
         </Card>
@@ -77,4 +50,27 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function validate(values) {
+  const errors = {};
+
+  _.each(FIELDS, (type, field) => {
+    const fieldHelper = FIELDS[field];
+
+    if (!values[field]) {
+      errors[field] = `${fieldHelper.floatingLabelText} is required.`;
+    }
+    else {
+      if (field === "email" && !values[field].match(/^\S+@\S+\.\S+$/) ) {
+        errors[field] = "Invalid email."
+      }
+    }
+  });
+
+  return errors;
+}
+
+export default reduxForm({
+  form: 'login',
+  fields: _.keys(FIELDS),
+  validate
+}, null, null)(Login);
