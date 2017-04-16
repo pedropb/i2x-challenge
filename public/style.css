@@ -1,0 +1,19 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: rgb(5, 62, 115);
+}
+
+.login-wrapper {    
+	max-width: 420px;
+  margin: 80px auto;
+}
+
+.login-form {
+	max-width: 420px;
+  padding: 30px 0;
+  margin: 80px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

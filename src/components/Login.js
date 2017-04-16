@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {Card, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Login extends Component {
 
@@ -14,7 +17,7 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    
+
   }
 
   handleEmailChange(event) {
@@ -39,24 +42,36 @@ class Login extends Component {
     if (event.target.value.length === 0) {
       this.setState({ passwordError: 'Password is required.'});
     }
+    else {
+      this.setState({ passwordError: '' });
+    }
   }
 
   render () {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <input name="email"
-            onChange={this.handleEmailChange.bind(this)}
-            value={this.state.email} />
-          <div id="email-error">{this.state.emailError}</div>
-          <input name="password"
-            type="password"
-            onChange={this.handlePasswordChange.bind(this)}
-            value={this.state.password} />
-          <div id="password-error">{this.state.passwordError}</div>
-          <button type="submit">Login</button>
-        </form>
-      </div>
+        <Card className="login-wrapper">
+          <form className="login-form" onSubmit={this.handleSubmit.bind(this)}>
+            <h2>Welcome!</h2><br />
+            <TextField
+                floatingLabelText="E-mail"
+                hintText="Enter e-mail"
+                name="email"
+                onChange={this.handleEmailChange.bind(this)}
+                value={this.state.email}
+                errorText={this.state.emailError}
+              /><br />
+            <TextField
+                floatingLabelText="Password"
+                hintText="Enter password"
+                type="password"
+                name="password"
+                onChange={this.handlePasswordChange.bind(this)}
+                value={this.state.password}
+                errorText={this.state.passwordError}
+              /><br />
+            <RaisedButton type="submit" label="Login" primary={true} />
+          </form>
+        </Card>
     );
   }
 }
