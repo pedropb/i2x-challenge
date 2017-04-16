@@ -52,7 +52,8 @@ class Login extends Component {
         <Card className="login-wrapper">
           <form className="login-form" onSubmit={this.handleSubmit.bind(this)}>
             <h2>Welcome!</h2><br />
-            <TextField
+            <hr className="colorgraph" />
+            <TextField 
                 floatingLabelText="E-mail"
                 hintText="Enter e-mail"
                 name="email"
@@ -60,7 +61,7 @@ class Login extends Component {
                 value={this.state.email}
                 errorText={this.state.emailError}
               /><br />
-            <TextField
+            <TextField 
                 floatingLabelText="Password"
                 hintText="Enter password"
                 type="password"
