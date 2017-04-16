@@ -2,6 +2,7 @@ import axios from 'axios';
 import history from '../history';
 import {
   AUTH_USER,
+  SENT_AUTH,
   UNAUTH_USER,
   AUTH_ERROR
 } from './types';
@@ -13,6 +14,8 @@ const API_BASE_URL = 'https://i2x-challenge.herokuapp.com/core/';
 // LOGIN ACTION
 export function loginUser({ email, password }) {
   return function(dispatch) {
+    dispatch({ type: SENT_AUTH });
+
     // POST email and password to API endpoint
     axios.post(`${API_BASE_URL}login/`, { email, password })
       .then(response => {

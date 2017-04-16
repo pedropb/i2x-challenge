@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { TextField }from 'redux-form-material-ui';
@@ -37,17 +38,37 @@ class Login extends Component {
   }
 
   render () {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, errorMessage, isAuthenticating } = this.props;
+
+    let wrapperClass = 'login-wrapper'
+    if (errorMessage) {
+      wrapperClass += ' login-err-animation';
+      setTimeout(() => {
+        this.wrapper.classList.remove('login-err-animation');
+      }, 3000)
+    }
+
+    let submitProps = {};
+    if (isAuthenticating) {
+      submitProps = {
+        disabled: true,
+        icon: <CircularProgress size={30}/>,
+        labelPosition: 'before'
+      }
+    }
 
     return (
-        <Card className="login-wrapper">
+      <div ref={(input) => this.wrapper = input} className={wrapperClass}>
+        <Card>
           <form className="login-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
             <h2>Welcome!</h2><br />
             <hr className="colorgraph" />
             {_.map(FIELDS, this.renderField.bind(this))}
-            <RaisedButton className="login-button" type="submit" label="Login" primary={true} />
+            <div className="error-message">{ errorMessage }</div>
+            <RaisedButton {...submitProps} className="login-button" type="submit" label="Login" primary={true} />
           </form>
         </Card>
+      </div>
     );
   }
 }
@@ -71,10 +92,18 @@ function validate(values) {
   return errors;
 }
 
+function mapStateToProps(state) {
+  const { error, isAuthenticating } = state.auth;
+  return { 
+    errorMessage: error,
+    isAuthenticating: isAuthenticating
+  };
+}
+
 Login = reduxForm({
   form: 'login',
   fields: _.keys(FIELDS),
   validate
-}, null, actions)(Login);
+})(Login);
 
-export default connect(null, actions)(Login)
+export default connect(mapStateToProps, actions)(Login);
