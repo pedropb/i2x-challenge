@@ -2,11 +2,18 @@ import React from 'react';
 import { Route } from 'react-router';
 import { mount } from 'enzyme';
 import Login from './Login';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 
 describe('<Login />', () => {
   let wrapper = null;
   beforeEach(() => {
-    wrapper = mount(<Login />);
+    wrapper = mount(
+    <MuiThemeProvider>
+      <Login />
+    </MuiThemeProvider>);
   });
   
   it('has email, password and submit button', () => {
