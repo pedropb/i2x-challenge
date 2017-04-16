@@ -41,3 +41,9 @@ export function loginUser({ email, password }) {
       });
   }
 }
+
+export function logoutUser() {
+  localStorage.removeItem('token');
+
+  return { type: UNAUTH_USER };
+}
