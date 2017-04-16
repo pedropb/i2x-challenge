@@ -20,7 +20,7 @@ const FIELDS = {
 class Login extends Component {
 
   handleFormSubmit() {
-    console.log('Done');
+    
   }
 
   renderField(fieldConfig, field) {
