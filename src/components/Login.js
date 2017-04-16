@@ -20,7 +20,7 @@ const FIELDS = {
 class Login extends Component {
 
   handleFormSubmit() {
-    
+
   }
 
   renderField(fieldConfig, field) {
@@ -43,7 +43,7 @@ class Login extends Component {
             <h2>Welcome!</h2><br />
             <hr className="colorgraph" />
             {_.map(FIELDS, this.renderField.bind(this))}
-            <RaisedButton type="submit" label="Login" primary={true} />
+            <RaisedButton className="login-button" type="submit" label="Login" primary={true} />
           </form>
         </Card>
     );

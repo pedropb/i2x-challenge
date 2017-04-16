@@ -11,7 +11,7 @@ import reducers from './reducers';
 
 injectTapEventPlugin();
 
-let store = createStore(reducers, [],  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+let store = createStore(reducers, undefined,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 ReactDOM.render(

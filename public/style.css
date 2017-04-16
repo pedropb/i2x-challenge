@@ -18,6 +18,10 @@ body {
   flex-direction: column;
 }
 
+.login-button {
+  margin-top: 40px;
+}
+
 .colorgraph {
   width: 320px;
   height: 7px;
