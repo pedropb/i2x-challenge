@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class Login extends Component {
+
   constructor(props) {
     super(props);
 
@@ -12,10 +13,14 @@ class Login extends Component {
     }
   }
 
+  handleSubmit(event) {
+    
+  }
+
   handleEmailChange(event) {
     this.setState({ email: event.target.value });
 
-    if (event.target.value.length == 0) {
+    if (event.target.value.length === 0) {
       this.setState({ emailError: 'Email is required.'});
     }
     else {
@@ -30,9 +35,8 @@ class Login extends Component {
 
   handlePasswordChange(event) {
     this.setState({ password: event.target.value });
-    console.log(event.target.value.length);
 
-    if (event.target.value.length == 0) {
+    if (event.target.value.length === 0) {
       this.setState({ passwordError: 'Password is required.'});
     }
   }
@@ -40,7 +44,7 @@ class Login extends Component {
   render () {
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <input name="email"
             onChange={this.handleEmailChange.bind(this)}
             value={this.state.email} />
@@ -50,7 +54,7 @@ class Login extends Component {
             onChange={this.handlePasswordChange.bind(this)}
             value={this.state.password} />
           <div id="password-error">{this.state.passwordError}</div>
-          <button action="submit">Login</button>
+          <button type="submit">Login</button>
         </form>
       </div>
     );

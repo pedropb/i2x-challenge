@@ -3,7 +3,6 @@ import { Route } from 'react-router';
 import { mount } from 'enzyme';
 import Login from './Login';
 
-
 describe('<Login />', () => {
   let wrapper = null;
   beforeEach(() => {
@@ -13,7 +12,7 @@ describe('<Login />', () => {
   it('has email, password and submit button', () => {
     const email = wrapper.find('input[name="email"]');
     const password = wrapper.find('input[name="password"][type="password"]');
-    const submit = wrapper.find('button[action="submit"]');
+    const submit = wrapper.find('button[type="submit"]');
 
     expect(email && password && submit).toBeTruthy();
   });
@@ -61,21 +60,34 @@ describe('<Login />', () => {
     });
   });
 
-  describe('login actions', () => {
-    it('should dispatch login action', () => {
-      //TODO: implement this
+  describe('form submission', () => {
+    let email, password, submit;
+    beforeEach(() => {
+      email = wrapper.find('input[name="email"]');
+      password = wrapper.find('input[name="password"][type="password"]');
+      submit = wrapper.find('button[type="submit"]');
+      
+      // Spying on handleSubmit
+      wrapper.instance().handleSubmit = jest.fn(() => true);
+      wrapper.update();
     });
 
-    it('should store the JWT token if login action returns successfully', () => {
-      //TODO: implement this
+    it('should call handleSubmit when a valid form submits', () => {
+      // Simulating a valid submit
+      email.simulate('change', { target: { value: 'pedropb@i2x.ai' }});
+      password.simulate('change', { target: { value: 'aaaaaa' }});
+      submit.simulate('submit');
+
+      expect(wrapper.instance().handleSubmit).toHaveBeenCalledTimes(1);
     });
 
-    it('should dispatch action AUTH_USER if login action returns successfully', () => {
-      //TODO: implement this
-    });
+    it('should not call handleSubmit when an invalid form submits', () => {
+      // Simulating an valid submit
+      email.simulate('change', { target: { value: 'not-an-email' }});
+      password.simulate('change', { target: { value: '' }});
+      submit.simulate('submit');
 
-    it('should redirect to /recordings if lo', () => {
-      //TODO: implement this
+      expect(wrapper.instance().handleSubmit).toHaveBeenCalledTimes(0);
     });
   });
 
