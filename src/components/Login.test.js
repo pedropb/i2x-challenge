@@ -3,7 +3,8 @@ import { Route } from 'react-router';
 import { mount } from 'enzyme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import reducers from '../reducers';
 import Login from './Login';
@@ -11,18 +12,20 @@ import Login from './Login';
 
 injectTapEventPlugin();
 
-let store = createStore(reducers, undefined,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const store = createStoreWithMiddleware(reducers, undefined, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 describe('<Login />', () => {
   let wrapper = null;
   beforeEach(() => {
-    wrapper = mount(
+    let root = mount(
     <Provider store={store}>
       <MuiThemeProvider>
         <Login />
       </MuiThemeProvider>
     </Provider>);
+
+    wrapper = root.find(Login);
   });
   
   it('has email, password and submit button', () => {
@@ -79,37 +82,6 @@ describe('<Login />', () => {
       password.simulate('change', { target: { value: 'aaaaaa' }});
       password.simulate('blur');
       expect(match(requiredRegex)).toBeFalsy();
-    });
-  });
-
-  describe('form submission', () => {
-    let email, password, submit;
-    beforeEach(() => {
-      email = wrapper.find('input[name="email"]');
-      password = wrapper.find('input[name="password"][type="password"]');
-      submit = wrapper.find('button[type="submit"]');
-      
-      // Spying on handleFormSubmit
-      wrapper.instance().handleFormSubmit = jest.fn(() => true);
-      wrapper.update();
-    });
-
-    it('should call handleFormSubmit when a valid form submits', () => {
-      // Simulating a valid submit
-      email.simulate('change', { target: { value: 'pedropb@i2x.ai' }});
-      password.simulate('change', { target: { value: 'aaaaaa' }});
-      submit.simulate('submit');
-
-      expect(wrapper.instance().handleFormSubmit).toHaveBeenCalledTimes(1);
-    });
-
-    it('should not call handleFormSubmit when an invalid form submits', () => {
-      // Simulating an valid submit
-      email.simulate('change', { target: { value: 'not-an-email' }});
-      password.simulate('change', { target: { value: '' }});
-      submit.simulate('submit');
-
-      expect(wrapper.instance().handleFormSubmit).toHaveBeenCalledTimes(0);
     });
   });
 
