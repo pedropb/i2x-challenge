@@ -7,11 +7,13 @@ import {
   AUTH_ERROR,
   FETCH_RECORDINGS,
   FETCHING_RECORDINGS,
+  FETCH_ERROR,
   TOGGLE_CONFIRM_LOGOUT
 } from './types';
 
 
-const API_BASE_URL = 'https://i2x-challenge.herokuapp.com/core/';
+const LOGIN_URL = 'https://i2x-challenge.herokuapp.com/core/login/'
+const RECORDINGS_URL = 'https://i2x-challenge.herokuapp.com/ai/recording/list/';
 
 
 // LOGIN ACTION
@@ -20,7 +22,7 @@ export function loginUser({ email, password }) {
     dispatch({ type: SENT_AUTH });
 
     // POST email and password to API endpoint
-    axios.post(`${API_BASE_URL}login/`, { email, password })
+    axios.post(LOGIN_URL, { email, password })
       .then(response => {
         // If request is successful: 
         
@@ -54,24 +56,36 @@ export function logoutUser() {
 
 // FETCH RECORDINGS
 export function fetchRecordings() {
-  console.log("fetchin recordings");
-  const recording = {
-    "final_script": "transcript text",
-    "rating": 4,
-    "duration": 920,
-    "url": "https://s3.eu-central-1.amazonaws.com/linementor-upload-chromex/challenge/3921.mp3", 
-    "created": "date_string" 
-  };
-  
-  return {
-    type: FETCH_RECORDINGS,
-    payload: [
-      recording,
-      recording,
-      recording,
-      recording
-    ]
-  };
+  return function(dispatch) {
+    dispatch({ type: FETCHING_RECORDINGS });
+
+    const token = localStorage.getItem('token');
+
+    // POST email and password to API endpoint
+    axios.get(RECORDINGS_URL, { 
+      headers: { 'Authorization' : `JWT ${token}` }
+    })
+      .then(response => {
+        // If request is successful: 
+        
+        // dispatch fetch_recordings
+        dispatch({ 
+          type: FETCH_RECORDINGS,
+          payload: response.data.results
+        });
+
+        console.log(`Fetched ${response.results.length} recordings`);
+      })
+      .catch(() => {
+        // If request fails
+        
+        // update state to show error to user
+        dispatch({
+          type: FETCH_ERROR,
+          payload: 'Invalid response.'
+        });
+      });
+  }
 }
 
 // CONFIRM LOGOUT
