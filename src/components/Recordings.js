@@ -19,6 +19,7 @@ class Recordings extends Component {
     return (
       <div className='recordings-wrapper'>
         {content}
+        <button label="Logout">Logout</button>
       </div>
     );
   }

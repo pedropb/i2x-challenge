@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { shallow } from 'enzyme';
 import CircularProgress from 'material-ui/CircularProgress';
+import FlatButton from 'material-ui/FlatButton';
 import Recordings from './Recordings';
 import Recording from './Recording';
 
@@ -36,7 +37,8 @@ describe('<Recordings />', () => {
   });
 
   it('shows a Logout button', () => {
-
+    const wrapper = shallow(<Recordings />);
+    expect(wrapper.find({ label: 'Logout' })).toHaveLength(1);
   });
 
 });
