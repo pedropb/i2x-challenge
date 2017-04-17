@@ -53,7 +53,7 @@ class Recording extends Component {
       <Card className="recording-card">
         <CardTitle>{this.renderStars()}</CardTitle>
         <CardText className="recording-content">
-          <p>{this.props.final_script}</p>
+          <p className="wordwrap">{this.props.final_script}</p>
           <p><strong>Duration: </strong>{this.renderDuration()}</p>
         </CardText>
         <CardActions>
