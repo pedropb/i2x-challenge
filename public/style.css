@@ -85,3 +85,19 @@ body {
    white-space: -o-pre-wrap;   /* Opera 7 */    
    word-wrap: break-word;      /* IE */
 }
+
+.recording-list-loading {
+  margin-top: 40px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.recording-list-appear {
+  opacity: 0.01;
+}
+
+.recording-list-appear.recording-list-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}

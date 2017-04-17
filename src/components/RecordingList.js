@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
@@ -26,13 +27,23 @@ export class RecordingList extends Component {
         content = <p><strong>Oops!</strong> There are no recordings available...</p>
       }
       else {
-        content = _.map(this.props.recordings, (fieldProps) => <Recording {...fieldProps} key={fieldProps.url} />);
+        content = (
+          <ReactCSSTransitionGroup
+            key="animation"
+            transitionName="recording-list"
+            transitionAppear
+            transitionAppearTimeout={500}
+            transitionEnter={false}
+            transitionLeave={false}>
+          {_.map(this.props.recordings, (fieldProps) => <Recording {...fieldProps} key={fieldProps.url} />)}
+          </ReactCSSTransitionGroup>
+        );
       }
     }
     // else render a loading indicator
     else {
       content = (
-        <div>
+        <div className="recording-list-loading">
           <CircularProgress />
         </div>
       );
@@ -47,7 +58,7 @@ export class RecordingList extends Component {
       <FlatButton
         label="Logout"
         primary
-        onTouchTap={() => history.push('/logout')}
+        onTouchTap={() => {this.props.confirmLogout(); history.push('/logout');}}
       />,
     ];
 
