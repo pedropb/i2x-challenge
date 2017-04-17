@@ -1,14 +1,24 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import AppBar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
+import Exit from 'material-ui/svg-icons/action/exit-to-app';
 import CircularProgress from 'material-ui/CircularProgress';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 import Recording from './Recording';
 
-class Recordings extends Component {
+export class Recordings extends Component {
+  componentWillMount() {
+    this.props.fetchRecordings();
+  }
+
   render() {
     let content = null;
 
-    // if we are not fetching recordings, render them
-    if (!this.props.fetchingRecordings) {
+    // if we are not fetching recordings, then render them
+    if (!this.props.isFetching) {
       if (this.props.recordings && this.props.recordings.length === 0 ){
         content = <p><strong>Oops!</strong> There are no recordings available...</p>
       }
@@ -23,19 +33,26 @@ class Recordings extends Component {
 
     return (
       <div className='recordings-wrapper'>
-        {content}
-        <button label="Logout">Logout</button>
+        <AppBar
+          title="Recordings"
+          iconElementLeft={<IconButton><Exit /></IconButton>}
+          onLeftIconButtonTouchTap={this.props.confirmLogout}
+        />
+        <Paper className='recordings-body'>
+          {content}
+        </Paper>
       </div>
     );
   }
 };
 
 function mapStateToProps(state) {
+  const { recordings } = state;
   return { 
-    recordings: state.recordings,
-    fetchingRecordings: state.fetchingRecordings
+    recordings: recordings.data,
+    isFetching: recordings.isFetching
   };
 }
 
 
-export default Recordings;
+export default connect(mapStateToProps, actions)(Recordings);
