@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router';
 import history from './history';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import Recordings from './components/Recordings';
+import RecordingList from './components/RecordingList';
 
 export default function Routes(props) {
   return (
@@ -11,7 +11,7 @@ export default function Routes(props) {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Logout} />
-        <Route path="/recordings" component={Recordings} />
+        <Route path="/recordings" component={RecordingList} />
         <Route component={Login} />  // No match
       </Switch>
     </Router>

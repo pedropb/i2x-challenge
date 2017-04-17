@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Recording from './Recording';
 
-export class Recordings extends Component {
+export class RecordingList extends Component {
   componentWillMount() {
     this.props.fetchRecordings();
   }
@@ -32,13 +32,13 @@ export class Recordings extends Component {
     }
 
     return (
-      <div className='recordings-wrapper'>
+      <div>
         <AppBar
           title="Recordings"
           iconElementLeft={<IconButton><Exit /></IconButton>}
           onLeftIconButtonTouchTap={this.props.confirmLogout}
         />
-        <Paper className='recordings-body'>
+        <Paper className='recording-list-body'>
           {content}
         </Paper>
       </div>
@@ -55,4 +55,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, actions)(Recordings);
+export default connect(mapStateToProps, actions)(RecordingList);
