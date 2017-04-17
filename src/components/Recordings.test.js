@@ -8,11 +8,21 @@ import Recording from './Recording';
 
 describe('<Recordings />', () => {
   it('shows a spinner while requesting for data', () => {
-    const wrapper = shallow(<Recordings />);
+    const wrapper = shallow(<Recordings fetchingRecordings={true} />);
     const spinner = wrapper.find(CircularProgress);
 
     expect(spinner).toHaveLength(1);
   });
+
+  it('shows a message if there are no recordings available', () => {
+    const props = {
+      fetchingRecordings: false,
+      recordings: []
+    };
+
+    const wrapper = shallow(<Recordings {...props} />);
+    expect(wrapper.html()).toMatch(/no recordings/i);
+  }); 
 
   it('shows a list of <Recording /> elements', () => {
     const recording = {
@@ -23,6 +33,7 @@ describe('<Recordings />', () => {
       "created": "date_string" 
     };
     const props = {
+      fetchingRecordings: false,
       recordings: [
         recording,
         recording,
@@ -38,7 +49,7 @@ describe('<Recordings />', () => {
 
   it('shows a Logout button', () => {
     const wrapper = shallow(<Recordings />);
-    expect(wrapper.find({ label: 'Logout' })).toHaveLength(1);
+    expect(wrapper.html()).toMatch(/logout/i);
   });
 
 });
