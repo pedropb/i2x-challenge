@@ -65,7 +65,15 @@ body {
   }
 }
 
+.recording-list-wrapper {
+  padding: 10px;
+}
+
 .recording-list-body {
-  
   min-height: 200px;
+  padding: 10px;
+}
+
+.recording-card {
+  margin: 20px;
 }

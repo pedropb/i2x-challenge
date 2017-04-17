@@ -32,13 +32,13 @@ export class RecordingList extends Component {
     }
 
     return (
-      <div>
+      <div className="recording-list-wrapper">
         <AppBar
           title="Recordings"
           iconElementLeft={<IconButton><Exit /></IconButton>}
           onLeftIconButtonTouchTap={this.props.confirmLogout}
         />
-        <Paper className='recording-list-body'>
+        <Paper className="recording-list-body">
           {content}
         </Paper>
       </div>
