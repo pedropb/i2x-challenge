@@ -17,6 +17,10 @@ class Recording extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.state.audio.pause();
+  }
+
   handlePlayClick() {
     if (this.state.playing) {
       this.state.audio.pause();
@@ -32,10 +36,10 @@ class Recording extends Component {
     let stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= this.props.rating) {
-        stars.push(<Star />);
+        stars.push(<Star key={`star${i}`}/>);
       }
       else {
-        stars.push(<StarBorder />);
+        stars.push(<StarBorder key={`star${i}`} />);
       }
     }
 
