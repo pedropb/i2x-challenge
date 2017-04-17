@@ -42,6 +42,7 @@ body {
 }
 
 .error-message {
+  margin-top: 20px;
   color: red;
 }
 
