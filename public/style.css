@@ -42,6 +42,7 @@ body {
 }
 
 .error-message {
+  margin-top: 20px;
   color: red;
 }
 
@@ -62,4 +63,41 @@ body {
   100% {
     transform: translateX(0);
   }
+}
+
+.recording-list-wrapper {
+  padding: 10px;
+}
+
+.recording-list-body {
+  min-height: 200px;
+  padding: 10px;
+}
+
+.recording-card {
+  margin: 20px;
+}
+
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
+
+.recording-list-loading {
+  margin-top: 40px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.recording-list-appear {
+  opacity: 0.01;
+}
+
+.recording-list-appear.recording-list-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }
