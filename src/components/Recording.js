@@ -52,11 +52,17 @@ class Recording extends Component {
     return `${mins}m${sec}s`;
   }
 
+  renderDate() {
+    let date = new Date(this.props.created);
+    return date.toLocaleString();
+  }
+
   render() {
     return (
       <Card className="recording-card">
         <CardTitle>{this.renderStars()}</CardTitle>
         <CardText className="recording-content">
+          <p><em>{this.renderDate()}</em></p>
           <p className="wordwrap">{this.props.final_script}</p>
           <p><strong>Duration: </strong>{this.renderDuration()}</p>
         </CardText>

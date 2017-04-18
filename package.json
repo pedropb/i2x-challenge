@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
+    "history": "^4.6.1",
     "lodash": "^4.17.4",
     "material-ui": "^0.17.4",
     "react": "^15.5.4",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.8.1",
+    "coveralls": "^2.13.0",
     "enzyme": "^2.8.2",
     "react-scripts": "0.9.5",
     "react-test-renderer": "^15.5.4",
@@ -28,6 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test-coverage": "react-scripts test --coverage --env=jsdom && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && echo 'Coveralls upload completed'",
     "eject": "react-scripts eject"
   }
 }
