@@ -29,7 +29,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "react-scripts build && node server.js", 
+    "start": "node server.js", 
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test-coverage": "react-scripts test --coverage --env=jsdom && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && echo 'Coveralls upload completed'",
