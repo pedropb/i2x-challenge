@@ -13,7 +13,7 @@ import Login from '../Login';
 injectTapEventPlugin();
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers, undefined, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStoreWithMiddleware(reducers);
 
 describe('<Login />', () => {
   let wrapper = null;
