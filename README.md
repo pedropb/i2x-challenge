@@ -20,7 +20,7 @@ This is a simple React application that has 2 views: a Login and a ListView incl
 Based on [these instructions](https://blog.heroku.com/deploying-react-with-zero-configuration):
 1. Clone the repo: `git clone https://github.com/pedropb/i2x-challenge`
 2. Create heroku app, using custom script: `heroku create -b https://github.com/mars/create-react-app-buildpack.git`
-3. Push to heroku: `git push heroku master``
+3. Push to heroku: `git push heroku master`
 4. Open: `heroku open`
 
 ### Deployment Instructions
