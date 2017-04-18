@@ -30,7 +30,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "test-coverage": "react-scripts test --coverage --env=jsdom && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test-coverage": "react-scripts test --coverage --env=jsdom && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && echo 'Coveralls upload completed'",
     "eject": "react-scripts eject"
   }
 }
