@@ -72,6 +72,9 @@ body {
 .recording-list-body {
   min-height: 200px;
   padding: 10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .recording-card {
@@ -88,9 +91,6 @@ body {
 
 .recording-list-loading {
   margin-top: 40px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
 }
 
 .recording-list-appear {

@@ -19,46 +19,66 @@ export class RecordingList extends Component {
   }
 
   render() {
+    const { 
+      errorMessage, 
+      isFetching,
+      recordings,
+      confirmLogout,
+      showConfirmation
+    } = this.props;
+
     let content = null;
 
-    // if we are not fetching recordings, then render them
-    if (!this.props.isFetching) {
-      if (this.props.recordings && this.props.recordings.length === 0 ){
-        content = <p><strong>Oops!</strong> There are no recordings available...</p>
+    // if fetching records failed
+    if (errorMessage) {
+      content =  <div className="error-message">{ errorMessage }</div>
+    }
+    else {
+      // if we are not fetching recordings, then render them
+      if (!isFetching) {
+        // if there are no recordings, show a message
+        if (recordings && recordings.length === 0 ){
+          content = <p><strong>Oops!</strong> There are no recordings available...</p>
+        }
+        // else render the recordings
+        else {
+          content = (
+            <ReactCSSTransitionGroup
+              key="animation"
+              transitionName="recording-list"
+              transitionAppear
+              transitionAppearTimeout={500}
+              transitionEnter={false}
+              transitionLeave={false}>
+            {_.map(recordings, (fieldProps) => <Recording {...fieldProps} key={fieldProps.url} />)}
+            </ReactCSSTransitionGroup>
+          );
+        }
       }
+      // if we are still fetching, then render a loading indicator
       else {
         content = (
-          <ReactCSSTransitionGroup
-            key="animation"
-            transitionName="recording-list"
-            transitionAppear
-            transitionAppearTimeout={500}
-            transitionEnter={false}
-            transitionLeave={false}>
-          {_.map(this.props.recordings, (fieldProps) => <Recording {...fieldProps} key={fieldProps.url} />)}
-          </ReactCSSTransitionGroup>
+          <div className="recording-list-loading">
+            <CircularProgress />
+          </div>
         );
       }
     }
-    // else render a loading indicator
-    else {
-      content = (
-        <div className="recording-list-loading">
-          <CircularProgress />
-        </div>
-      );
-    }
 
+    // modal actions for Logout button
     const modalActions = [
       <FlatButton
         label="Cancel"
         primary
-        onTouchTap={this.props.confirmLogout}
+        onTouchTap={confirmLogout}
       />,
       <FlatButton
         label="Logout"
         primary
-        onTouchTap={() => {this.props.confirmLogout(); history.push('/logout');}}
+        onTouchTap={() => {
+          confirmLogout(); 
+          history.push('/logout');
+        }}
       />,
     ];
 
@@ -67,13 +87,13 @@ export class RecordingList extends Component {
         <Dialog
           title="Confirm logout?"
           actions={modalActions}
-          modal={true}
-          open={this.props.showConfirmation}
+          modal
+          open={showConfirmation}
         />
         <AppBar
           title="Recordings"
           iconElementLeft={<IconButton><Exit /></IconButton>}
-          onLeftIconButtonTouchTap={this.props.confirmLogout}
+          onLeftIconButtonTouchTap={confirmLogout}
         />
         <Paper className="recording-list-body">
           {content}
@@ -88,7 +108,8 @@ function mapStateToProps(state) {
   return { 
     recordings: recordings.data,
     isFetching: recordings.isFetching,
-    showConfirmation: recordings.confirmLogout
+    showConfirmation: recordings.confirmLogout,
+    errorMessage: recordings.errorMessage
   };
 }
 
