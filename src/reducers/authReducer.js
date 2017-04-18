@@ -5,7 +5,7 @@ import {
   AUTH_ERROR
 } from '../actions/types';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   error: '',
   authenticated: false,
   isAuthenticating: false

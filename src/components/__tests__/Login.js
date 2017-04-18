@@ -6,14 +6,14 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import reducers from '../reducers';
-import Login from './Login';
+import reducers from '../../reducers';
+import Login from '../Login';
 
 
 injectTapEventPlugin();
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers, undefined, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStoreWithMiddleware(reducers);
 
 describe('<Login />', () => {
   let wrapper = null;

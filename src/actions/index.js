@@ -13,8 +13,8 @@ import {
 } from './types';
 
 
-const LOGIN_URL = 'https://i2x-challenge.herokuapp.com/core/login/'
-const RECORDINGS_URL = 'https://i2x-challenge.herokuapp.com/ai/recording/list/';
+export const LOGIN_ENDPOINT = 'https://i2x-challenge.herokuapp.com/core/login/';
+export const RECORDINGS_ENDPOINT = 'https://i2x-challenge.herokuapp.com/ai/recording/list/';
 
 
 // LOGIN ACTION
@@ -23,7 +23,7 @@ export function loginUser({ email, password }) {
     dispatch({ type: SENT_AUTH });
 
     // POST email and password to API endpoint
-    axios.post(LOGIN_URL, { email, password })
+    return axios.post(LOGIN_ENDPOINT, { email, password })
       .then(response => {
         // If request is successful: 
         
@@ -63,7 +63,7 @@ export function fetchRecordings() {
     const token = localStorage.getItem('token');
 
     // POST email and password to API endpoint
-    axios.get(RECORDINGS_URL, { 
+    return axios.get(RECORDINGS_ENDPOINT, {
       headers: { 'Authorization' : `JWT ${token}` }
     })
       .then(response => {
@@ -75,7 +75,7 @@ export function fetchRecordings() {
           payload: response.data.results
         });
       })
-      .catch((error) => {
+      .catch(error => {
         // If request fails
         
         // update state to show error to user

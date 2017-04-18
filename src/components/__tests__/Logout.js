@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Logout } from './Logout';
+import { Logout } from '../Logout';
 
 describe('<Logout />', () => {
   it('logs off user', () => {
