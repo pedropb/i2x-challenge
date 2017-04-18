@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import reducers from '../reducers';
+import reducers from '../../reducers';
 import Login from '../Login';
 
 
