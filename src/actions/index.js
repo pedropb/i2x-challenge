@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+
 import {
   AUTH_USER,
   SENT_AUTH,
@@ -73,16 +74,14 @@ export function fetchRecordings() {
           type: FETCH_RECORDINGS,
           payload: response.data.results
         });
-
-        console.log(`Fetched ${response.results.length} recordings`);
       })
-      .catch(() => {
+      .catch((error) => {
         // If request fails
         
         // update state to show error to user
         dispatch({
           type: FETCH_ERROR,
-          payload: 'Invalid response.'
+          payload: error.message
         });
       });
   }
