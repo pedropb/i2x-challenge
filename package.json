@@ -28,7 +28,8 @@
     "redux-mock-store": "^1.2.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "react-scripts build && node server.js", 
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "test-coverage": "react-scripts test --coverage --env=jsdom && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && echo 'Coveralls upload completed'",
