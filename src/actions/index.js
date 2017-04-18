@@ -63,7 +63,7 @@ export function fetchRecordings() {
     const token = localStorage.getItem('token');
 
     // POST email and password to API endpoint
-    axios.get(RECORDINGS_ENDPOINT, {
+    return axios.get(RECORDINGS_ENDPOINT, {
       headers: { 'Authorization' : `JWT ${token}` }
     })
       .then(response => {
@@ -75,7 +75,7 @@ export function fetchRecordings() {
           payload: response.data.results
         });
       })
-      .catch((error) => {
+      .catch(error => {
         // If request fails
         
         // update state to show error to user
