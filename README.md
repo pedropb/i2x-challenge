@@ -2,7 +2,7 @@
 
 This is a simple React application that has 2 views: a Login and a ListView including some audio elements and metadata.
 
-![Demo](http://imgur.com/a/XlD97)
+![Demo](http://i.imgur.com/BaXQIlI.gif)
 
 ## Installation
 
