@@ -24,7 +24,8 @@ describe('<Routes />', () => {
 
   it('has /recordings route', () => {
     const route = wrapper.find({path: '/recordings'});
-    const localStorage = { getItem : () => true };
-    expect(route.props().render()).toBe(RecordingList);
+    localStorage.getItem = () => true;
+    expect(route.props().render()).toEqual(<RecordingList />);
+    localStorage.getItem = jest.fn();
   });
 });
