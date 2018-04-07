@@ -15,21 +15,17 @@ This is a simple React application that has 2 views: a Login and a ListView incl
 3. Run: `npm start`
 4. Browse to [http://localhost:3000](http://localhost:3000)
 
-### Heroku
+### Deploy on Heroku
 
-Based on [these instructions](https://blog.heroku.com/deploying-react-with-zero-configuration):
 1. Clone the repo: `git clone https://github.com/pedropb/i2x-challenge`
 2. Create heroku app, using custom script: `heroku create -b https://github.com/mars/create-react-app-buildpack.git`
 3. Push to heroku: `git push heroku master`
 4. Open: `heroku open`
 
-### Deployment Instructions
+### Deploy to Production
 
 Based on [these instructions](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment)
 1. Clone the repo: `git clone https://github.com/pedropb/i2x-challenge`
 2. Build: `npm run build` - this will create a build folder with all the static content of the app
-3. Install `serve` a Static Server: `npm install -g serve`
-    - Alternatively: setup a node or express server ([server.js](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#other-solutions))
-4. Run server: `serve -s build` - this will initiate a static server on port 5000, serving `build` folder content.
-
+3. Deploy build folder to your production server.
 
